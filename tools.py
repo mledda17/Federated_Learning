@@ -208,6 +208,7 @@ def plot_results_federated(x, f):
     plt.show()
 
 
+
 def accuracy(A, b, x):
     """
     Returns the ratio of correctly classified data points
