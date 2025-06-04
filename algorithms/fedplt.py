@@ -1,5 +1,5 @@
 import numpy as np
-from scripts.quantization import quantize
+from utilities.quantization import quantize
 
 def fed_plt(f_i, x_init, alpha, num_iter, N_e, N, rho, Delta=None):
     """

@@ -1,12 +1,14 @@
 import numpy as np
-import tools
+from utilities import tools
+import os
 from sklearn.datasets import make_classification
-from scripts.fedavg import fed_avg
-from scripts.fedplt import fed_plt
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from numpy import linalg as la
-import scienceplots
+from scripts.run_quantization import run_quantization
+from scripts.run_stochastic_gradient import run_stochastic_gradient
+from scripts.algorithms_comparison import comparison_varying_ne
+
+os.makedirs("figures/FedAvg", exist_ok=True)
+os.makedirs("figures/FedPLT", exist_ok=True)
+os.makedirs("figures/Compare", exist_ok=True)
 
 ran = np.random.default_rng()
 
@@ -34,58 +36,10 @@ b_i = [b[i*num_data:(i+1)*num_data,:] for i in range(N)]
 ran = np.random.default_rng()
 v = ran.normal(size=(num_features, 1))
 
-batch_sizes = [None]
+f = tools.LogisticRegression(A, b, loss_weight=1/num_data, reg_weight=reg_weight, batch_sz=None)
+f_i = [tools.LogisticRegression(A_i[i], b_i[i], loss_weight=1/num_data, reg_weight=reg_weight/N, batch_sz=None) for i in range(N)]
 
-for batch_sz in batch_sizes:
-    # Create global cost and local costs
-    f = tools.LogisticRegression(A, b,
-                                 loss_weight=1/num_data,
-                                 reg_weight=50,
-                                 batch_sz=batch_sz)
-    f_i = [tools.LogisticRegression(A_i[i], b_i[i],
-                                    loss_weight=1 / num_data,
-                                    reg_weight=reg_weight / N,
-                                    batch_sz=batch_sz)
-           for i in range(N)]
+comparison_varying_ne(f_i, f, v, step, num_iter, N, rho)
+run_quantization(f_i, f, v, step, num_iter, N, rho)
+run_stochastic_gradient(A, b, A_i, b_i, v, step, num_iter, N, rho, reg_weight)
 
-    # Plot parameters
-    pparam = dict(xlabel="Iterations", ylabel="Error")
-    N_e_list = [1, 10, 50, 100]
-
-    # FedAvg Plots
-    with plt.style.context(["science", "ieee"]):
-        mpl.rcParams["text.usetex"] = False
-        mpl.rcParams["font.serif"] = ["DejaVu Serif"]
-
-        fig, ax = plt.subplots()
-
-        for N_e in N_e_list:
-            x_avg = fed_avg(f_i, v, step, num_iter, N_e, N)
-            error = [la.norm(f.gradient(x_avg[..., k])) for k in range(x_avg.shape[-1])]
-            ax.semilogy(error, label=fr"${N_e}$")
-
-        ax.legend(title=r"$N_e$")
-        ax.autoscale(tight=True)
-        ax.set(**pparam)
-
-        fig.savefig("figures/FedAvg/convergence_fedavg_varying_ne.jpg", dpi=300)
-        plt.close()
-
-    # FedPLT Plots
-    with plt.style.context(["science", "ieee"]):
-        mpl.rcParams["text.usetex"] = False
-        mpl.rcParams["font.serif"] = ["DejaVu Serif"]
-
-        fig, ax = plt.subplots()
-
-        for N_e in N_e_list:
-            x_plt = fed_plt(f_i, v, step, num_iter, N_e, N, rho)
-            error = [la.norm(f.gradient(x_plt[..., k])) for k in range(x_avg.shape[-1])]
-            ax.semilogy(error, label=fr"${N_e}$")
-
-        ax.legend(title=r"$N_e$")
-        ax.autoscale(tight=True)
-        ax.set(**pparam)
-
-        fig.savefig("figures/FedPLT/convergence_fedplt_varying_ne.jpg", dpi=300)
-        plt.close()
