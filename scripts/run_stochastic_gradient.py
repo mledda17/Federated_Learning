@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from numpy import linalg as la
 
-def run_stochastic_gradient(A, b, A_i, b_i, v, step, num_iter, N, rho, reg_weight):
-    batch_sizes = [None, 50, 10, 1]
-    N_e = 10
+def run_stochastic_gradient(A, b, A_i, b_i, v, step, num_iter, N, rho, reg_weight, num_data):
+    batch_sizes = [None, int(num_data/2), int(num_data/4), 1]
+    N_e = 1
     pparam = dict(xlabel="Iterations", ylabel="Error")
 
     with plt.style.context(["science", "ieee"]):
@@ -20,7 +20,7 @@ def run_stochastic_gradient(A, b, A_i, b_i, v, step, num_iter, N, rho, reg_weigh
         fig_plt, ax_plt = plt.subplots()
 
         for batch_sz in batch_sizes:
-            f = tools.LogisticRegression(A, b, loss_weight=1 / 100, reg_weight=reg_weight, batch_sz=batch_sz)
+            f = tools.LogisticRegression(A, b, loss_weight=1 / 100, reg_weight=reg_weight)
             f_i = [tools.LogisticRegression(A_i[i], b_i[i], loss_weight=1 / 100, reg_weight=reg_weight / N,
                                             batch_sz=batch_sz) for i in range(N)]
             x_avg = fed_avg(f_i, v, step, num_iter, N_e, N)

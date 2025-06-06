@@ -41,5 +41,5 @@ f_i = [tools.LogisticRegression(A_i[i], b_i[i], loss_weight=1/num_data, reg_weig
 
 comparison_varying_ne(f_i, f, v, step, num_iter, N, rho)
 run_quantization(f_i, f, v, step, num_iter, N, rho)
-run_stochastic_gradient(A, b, A_i, b_i, v, step, num_iter, N, rho, reg_weight)
+run_stochastic_gradient(A, b, A_i, b_i, v, step, num_iter, N, rho, reg_weight, num_data)
 

@@ -24,7 +24,7 @@ def run_quantization(f_i, f, v, step, num_iter, N, rho):
             ax.semilogy(error, label=label)
             name = "noquant" if Delta is None else f"delta_{Delta}"
             save_dat_file(f"figures/FedAvg/fedavg_quant_{name}.dat", error)
-        ax.legend()
+        #ax.legend()
         ax.set(**pparam)
         fig.savefig("figures/FedAvg/convergence_fedavg_quantized.pdf", dpi=300)
         plt.close(fig)
@@ -38,7 +38,7 @@ def run_quantization(f_i, f, v, step, num_iter, N, rho):
             ax.semilogy(error, label=label)
             name = "noquant" if Delta is None else f"delta_{Delta}"
             save_dat_file(f"figures/FedPLT/fedplt_quant_{name}.dat", error)
-        ax.legend()
+        #ax.legend()
         ax.set(**pparam)
         fig.savefig("figures/FedPLT/convergence_fedplt_quantized.pdf", dpi=300)
         plt.close(fig)
