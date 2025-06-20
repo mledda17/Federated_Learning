@@ -55,7 +55,7 @@ This will:
 * Run all algorithms under different conditions
 * Export both .pdf plots and .dat files
 
-  ## 📄 Report
+## 📄 Report
 This project has been used to produce the full simulation results and plots for the final academic report:
 > “Multi-Agent Optimization and Learning: Resilient and Adaptive Solutions” — EECI Course 2025
 
