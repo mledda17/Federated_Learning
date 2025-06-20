@@ -60,6 +60,6 @@ This project has been used to produce the full simulation results and plots for 
 > “Multi-Agent Optimization and Learning: Resilient and Adaptive Solutions” — EECI Course 2025
 
 ## 📚 References
-* ([McMahan et al., 2017 — Communication-Efficient Learning of Deep Networks from Decentralized Data](https://arxiv.org/abs/1602.05629))
-* ([Bastianello et al., 2024 — Enhancing Privacy in Federated Learning through Local Training (Fed-PLT)](https://arxiv.org/abs/2401.03849))
+* [McMahan et al., 2017 — Communication-Efficient Learning of Deep Networks from Decentralized Data (FedAvg)](https://arxiv.org/abs/1602.05629)
+* [Bastianello et al., 2024 — Enhancing Privacy in Federated Learning through Local Training (Fed-PLT)](https://arxiv.org/abs/2401.03849)
 
