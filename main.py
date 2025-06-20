@@ -3,7 +3,7 @@ from utilities import tools
 import os
 from sklearn.datasets import make_classification
 from scripts.run_quantization import run_quantization
-from scripts.run_stochastic_gradient import run_stochastic_gradient
+from scripts.run_stochastic_gradient import run_stochastic_gradient_fedavg, run_stochastic_gradient_fedplt
 from scripts.algorithms_comparison import comparison_varying_ne
 
 os.makedirs("figures/FedAvg", exist_ok=True)
@@ -39,7 +39,10 @@ v = ran.normal(size=(num_features, 1))
 f = tools.LogisticRegression(A, b, loss_weight=1/num_data, reg_weight=reg_weight, batch_sz=None)
 f_i = [tools.LogisticRegression(A_i[i], b_i[i], loss_weight=1/num_data, reg_weight=reg_weight/N, batch_sz=None) for i in range(N)]
 
-comparison_varying_ne(f_i, f, v, step, num_iter, N, rho)
-run_quantization(f_i, f, v, step, num_iter, N, rho)
-run_stochastic_gradient(A, b, A_i, b_i, v, step, num_iter, N, rho, reg_weight, num_data)
+reg_weight_list = [1, 10, 50, 100]
+Ne_list = [1, 5, 10]
 
+comparison_varying_ne(f_i, f, v, step, num_iter, N, rho, A, b)
+run_quantization(f_i, f, v, step, num_iter, N, rho)
+run_stochastic_gradient_fedavg(A, b, A_i, b_i, v, step, num_iter, N, reg_weight, num_data, Ne_list=Ne_list)
+run_stochastic_gradient_fedplt(A, b, A_i, b_i, v, step, num_iter, N, reg_weight_list, rho=1.0, num_data=num_data, Ne_list=Ne_list)
