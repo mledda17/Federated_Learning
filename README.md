@@ -30,27 +30,6 @@ Both algorithms are implemented following their original formulations, with conf
 
 ---
 
-## 🔧 Project Structure
-
-├── algorithms/
-│ ├── fedavg.py # FedAvg algorithm
-│ ├── fedplt.py # Fed-PLT algorithm
-│
-├── utilities/
-│ ├── tools.py # Logistic regression model, gradient computation, accuracy
-│ └── save_dat_file.py # Utility for exporting TikZ-compatible .dat files
-│
-├── run_scripts/
-│ ├── algorithms_comparison.py # Comparison varying Ne
-│ ├── run_quantization.py # Experiments with quantization
-│ ├── run_stochastic_gradient.py # Experiments with stochastic gradients
-│
-├── figures/ # Output directory for plots and .dat files
-│
-└── main.py # Master script to run full experiments
-
----
-
 ## 🚀 Running the Experiments
 
 ### 1️⃣ Install required packages:
