@@ -57,6 +57,7 @@ Both algorithms are implemented following their original formulations, with conf
 
 ```bash
 pip install -r requirements.txt
+```
 
 The only major dependencies are:
 - numpy
@@ -68,4 +69,13 @@ The only major dependencies are:
 Simply execute:
 ```bash
 python main.py
+```
+
+This will:
+* Generate synthetic classification data
+* Run all algorithm under different conditions
+* Export both .pdf plots and .dat files
+
+  ## 📄 Report
+This project has been used to produce the full simulation results and plots for the final academic report:
 
