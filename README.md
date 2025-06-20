@@ -39,10 +39,10 @@ pip install -r requirements.txt
 ```
 
 The only major dependencies are:
-- numpy
-- matplotlib
-- scikit-learn
-- scienceplots
+- Numpy
+- Matplotlib
+- Scikit-learn
+- Scienceplots
 
 ### 2️⃣ Run full simulation pipeline:
 Simply execute:
